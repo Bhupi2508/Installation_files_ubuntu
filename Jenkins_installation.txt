@@ -1,0 +1,51 @@
+******************************** Jenkins CICD WITH APPSERVER **************************************
+
+Step 1 :Intsallation of  Java in Jenkins Server(EC2 INSTANCE)
+		sudo apt-get update
+		sudo apt-get install default-jre
+		sudo apt-get install default-jdk
+
+Step 2 :Installation of Jenkins in Jenkins Server(EC2 INSTANCE)
+		wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+		echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+		sudo apt-get update
+		sudo apt-get install jenkins
+		sudo systemctl start jenkins
+		sudo systemctl status jenkins
+		sudo ufw allow 8080
+		sudo ufw status
+		sudo ufw allow OpenSSH
+		sudo ufw enable
+		sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+		
+Step 3 :Generating Jenkins RSA public and privateKey in Jenkins Server(EC2 INSTANCE)	
+        sudo su - jenkins
+		sudo ssh-keygen
+		Generated key path is 
+		cd /var/lib/jenkins/.ssh/id_rsa && id_rsa.pub
+		http://18.220.71.117:8080/
+
+Step 4 :What changes need to be done in github to connect with Jenkins Server(EC2 INSTANCE)
+        First changes IN Webhooks = give url of jenkins in this format <http://<ip of your Jenkins Server(EC2 INSTANCE)/github-webhooks>> 
+        http://18.220.71.117:8080/github-webhooks/
+        Second changes IN Deploy Keys = mention your public key (GREEN KEY)
+
+Step 5 : Go to Jenkins Server(EC2 INSTANCE)
+         (imp) --> Install Plugin (for CICD)
+                   plugin name - Git Integration
+        (imp) First Config = newItem - configure - source code management - select GIT
+               0 . Intall Git Integration Plugin then restart jenkins 
+               		Hint : Not edit old webhook, Create new webhook
+               1 . Provide the path of your repository (SSH PATH select from(CLONE DOWNLOAD)) 
+               2 . Second step is select Credential 
+                  - So you have to create Credentials 
+                  - Goto to your Jenkins main dashboard - 
+                  - Select Credential option from menu
+                  - Select Add Credential
+                  - Select Kind -> Select -> SSH Username with private Key 
+                  - Give Username
+                  - Goto Private Key -> Select Radio button Enter Directly -> Provide Private Key of your Jenkins Server(EC2 INSTANCE)
+         Second Config = newItem - configure - bulid trigger - GitHub hook trigger for GITScm polling
+
+Step 6 : What configure need to done to connect Jenkins Server with  Appserver(EC2 INSTANCE)
+         connect with instance -> cd .ssh -> sudo nano authorized_key (provide public key of Jenkins Server(EC2 INSTANCE))
