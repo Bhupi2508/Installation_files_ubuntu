@@ -1,0 +1,33 @@
+#!/bin/bash
+sudo su - jenkins
+echo "copying file"
+scp -r /var/lib/jenkins/workspace/-----Project Name------ ubuntu@------private DNS instance ip------:/home/ubuntu
+echo "copyed"
+echo "connecting.."
+ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@------private DNS instance ip------ '
+echo "system update"
+sudo apt-get update 
+sudo apt-get upgrade 
+cd /home/ubuntu/-----Project Name------
+echo "installing nodejs latest version10"
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+#echo "installing npm"
+echo "installing mongodb"
+sudo apt update
+sudo apt install -y mongodb
+echo "installing redis database"
+sudo apt-get install redis-server 
+echo "kill all the process before starting server"
+killall -9 node
+echo "go to your project and install your all dependencies"
+cd /home/ubuntu/-----Project Name------
+echo "remove previously node modules"
+sudo rm -rf package-lock.json
+sudo rm -rf node_modules
+echo "install all your dependencies"
+npm install 
+echo "start server"
+node server.js
+echo "successfully" '

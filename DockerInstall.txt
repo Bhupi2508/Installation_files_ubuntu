@@ -1,0 +1,53 @@
+//How to install Docker on Linux
+
+Agenda:
+Prerequisites
+Connect to Linux
+Install Docker
+Start Docker
+Stop Docker
+Uninstall Docker
+
+
+//Prerequisite
+OS should be 64 bit
+Linux kernel ver 3.10 or greater
+
+//for username purpose
+command to check : uname -r
+
+//connection Connect to Linux system
+//Install DOCKER
+sudo yum -y update
+sudo yum install -y docker
+
+//check docker version
+docker
+docker --version
+
+//start docker
+sudo service docker start
+sudo usermod -a -G docker "user"
+
+//info purpose
+docker info
+docker run hello-world : to run hello-world image
+docker images : to get list of images present locally
+docker ps : to get list of running containers
+docker ps -a .  : to get list of all containers
+
+//stop purpose
+sudo service docker stop
+uninstall DOCKER
+sudo yum remove docker
+
+//HELPFUL TIPS
+You can visit - https://get.docker.com/
+for more installation related help
+
+//To install docker from binaries
+https://docs.docker.com/engine/instal...
+
+//Installation steps for amazon ec2
+http://docs.aws.amazon.com/AmazonECS/...
+

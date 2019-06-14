@@ -1,0 +1,30 @@
+//java install
+sudo apt-get update
+sudo apt-get install default-jre
+sudo apt-get install default-jdk
+java -version
+
+
+//Install Elasticsearch on Ubuntu
+sudo apt-get install apt-transport-https
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+sudo apt-get update
+sudo apt-get install elasticsearch
+
+//Configure Elasticsearch
+sudo nano /etc/elasticsearch/elasticsearch.yml
+
+//change those value
+ network.host: 0.0.0.0
+ cluster.name: myCluster1
+ node.name: "myNode1"
+
+// Launch Elasticsearch
+sudo /bin/systemctl enable elasticsearch.service
+sudo systemctl start elasticsearch.service
+sudo systemctl stop elasticsearch.service
+
+
+//test elasticSearch
+http://localhost:9200

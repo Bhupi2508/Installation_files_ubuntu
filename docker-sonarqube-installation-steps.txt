@@ -1,0 +1,46 @@
+//Installation process for docker & sonarqube : 
+
+//commands to install docker-compose:
+sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+//commands to install docker:
+docker ps
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo systemctl status docker
+docker -v
+docker
+sudo apt install docker.io
+
+//commands to install sonarqube-scanner:
+sudo npm i -g sonarqube-scanner
+
+//create a yml file
+cd ~go-to-your-project-dir
+touch docker-compose.yml
+
+https://pauledenburg.com/sonarqube-postgres-docker-compose/
+
+----> setup yml properties mentioned in above link
+then,
+
+//create a file for sonarqube properties
+touch sonar-project.properties
+
+https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
+
+----> set up sonar project properties mentioned in above link 
+
+
+sudo docker-compose up -d
+sonar-scanner -v
+
+//check localhost
+open browser and run http://localhost:9000 and login as admin / admin.
+
+//command to run sonarqube : 
+sonar-scanner
+
